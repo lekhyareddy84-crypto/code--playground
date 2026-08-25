@@ -1,55 +1,100 @@
 # Code Playground / Code Analyzer
-A web-based code editor that lets users write and run code in Python, JavaScript, Java, C, C++, and Ruby.
+
+A web-based editor for writing and executing Python, JavaScript, Java, C, C++, and Ruby programs. It also supports optional AI code analysis and execution history.
 
 ## Features
 
-- Code editor with multiple programming languages
-- Run code and view output
-- Optional standard input
-- Code execution history
-- AI code analysis
-- Dark responsive interface
+- Multi-language Monaco code editor
+- Standard-input field and output panel
+- Judge0-powered code execution
+- Optional Perplexity-compatible AI code review
+- Execution history stored in MongoDB or temporary memory storage
+- Responsive dark interface
 
-A MERN-style web IDE based on the uploaded project report:
-- React frontend
-- Node.js + Express backend
-- Judge0 for multi-language execution
-- Perplexity-compatible AI analysis endpoint
-- MongoDB-ready architecture
-- Code history
-- Dark responsive interface
+## Technology
+
+- React and Vite frontend
+- Node.js and Express backend
+- MongoDB and Mongoose (optional)
+- Judge0 CE API for code execution
 
 ## Requirements
-- Node.js 18+
-- Judge0 RapidAPI key
-- Perplexity API key (optional; AI analysis can be disabled)
+
+- Node.js 18 or later
+- An active Judge0 CE RapidAPI subscription and API key
+- Perplexity API key (optional, for AI analysis)
+- MongoDB connection string (optional, for persistent history)
 
 ## Setup
 
-### Backend
-```bash
+
+Open two terminals in the project folder.
+
+### 1. Configure the backend
+
+```powershell
 cd backend
-npm install
-cp .env.example .env
-# Add API keys to .env
-npm run dev
+npm.cmd install
 ```
 
-### Frontend
-```bash
+Create `backend/.env` and add the following values:
+
+```env
+PORT=5000
+CLIENT_URL=http://localhost:5173
+JUDGE0_API_KEY=your_rapidapi_key
+JUDGE0_API_URL=https://judge0-ce.p.rapidapi.com
+JUDGE0_API_HOST=judge0-ce.p.rapidapi.com
+
+# Optional: enables AI analysis
+PERPLEXITY_API_KEY=your_perplexity_api_key
+PERPLEXITY_API_URL=https://api.perplexity.ai/chat/completions
+PERPLEXITY_MODEL=sonar
+
+# Optional: enables persistent history
+MONGODB_URI=your_mongodb_connection_string
+```
+
+Start the backend:
+
+```powershell
+npm.cmd run dev
+```
+
+
+### 2. Start the frontend
+
+In the second terminal:
+
+```powershell
 cd frontend
-npm install
-npm run dev
+npm.cmd install
+npm.cmd run dev
 ```
 
-Open the Vite URL shown in the terminal.
+Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+## Usage
+
+1. Start both the backend and frontend.
+2. Choose a language from the selector.
+3. Write or edit the code in the editor.
+4. Enter optional standard input.
+5. Click **Run Code** to execute it.
+6. Click **Analyze Code** to receive AI feedback when configured.
 
 ## API
-- GET `/api/health`
-- POST `/api/execute`
-- POST `/api/analyze`
-- GET `/api/history`
-- POST `/api/history`
+- `GET /api/health`
+- `POST /api/execute`
+- `POST /api/analyze`
+- `GET /api/history`
+- `POST /api/history`
+
+## Notes
+
+- Judge0 returns “You are not subscribed to this API” until the RapidAPI account associated with `JUDGE0_API_KEY` has an active Judge0 CE subscription.
+- If MongoDB is unavailable, history is kept in memory and is cleared when the backend restarts.
 
 ## Security
-Never expose API keys in frontend code. Store them in backend environment variables.
+
+Never commit or upload `backend/.env`. Keep API keys only in backend environment variables, and ensure `.gitignore` includes `.env` and `node_modules/`.

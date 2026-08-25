@@ -27,12 +27,8 @@ A web-based editor for writing and executing Python, JavaScript, Java, C, C++, a
 
 ## Setup
 
-
-Open two terminals in the project folder.
-
-### 1. Configure the backend
-
-```powershell
+### Backend
+```bash
 cd backend
 npm.cmd install
 ```
@@ -84,16 +80,11 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 6. Click **Analyze Code** to receive AI feedback when configured.
 
 ## API
-- `GET /api/health`
-- `POST /api/execute`
-- `POST /api/analyze`
-- `GET /api/history`
-- `POST /api/history`
-
-## Notes
-
-- Judge0 returns “You are not subscribed to this API” until the RapidAPI account associated with `JUDGE0_API_KEY` has an active Judge0 CE subscription.
-- If MongoDB is unavailable, history is kept in memory and is cleared when the backend restarts.
+- GET `/api/health`
+- POST `/api/execute`
+- POST `/api/analyze`
+- GET `/api/history`
+- POST `/api/history`
 
 ## Security
 

@@ -1,4 +1,14 @@
 # Code Playground / Code Analyzer
+A web-based code editor that lets users write and run code in Python, JavaScript, Java, C, C++, and Ruby.
+
+## Features
+
+- Code editor with multiple programming languages
+- Run code and view output
+- Optional standard input
+- Code execution history
+- AI code analysis
+- Dark responsive interface
 
 A MERN-style web IDE based on the uploaded project report:
 - React frontend

@@ -21,8 +21,7 @@ A web-based editor for writing and executing Python, JavaScript, Java, C, C++, a
 ## Requirements
 
 - Node.js 18 or later
-- An active Judge0 CE RapidAPI subscription and API key
-- Perplexity API key (optional, for AI analysis)
+- Ollama with the `llama3.2` model (optional, for AI analysis)
 - MongoDB connection string (optional, for persistent history)
 
 ## Setup
@@ -38,14 +37,12 @@ Create `backend/.env` and add the following values:
 ```env
 PORT=5000
 CLIENT_URL=http://localhost:5173
-JUDGE0_API_KEY=your_rapidapi_key
-JUDGE0_API_URL=https://judge0-ce.p.rapidapi.com
-JUDGE0_API_HOST=judge0-ce.p.rapidapi.com
+# Optional: override the public Judge0 CE endpoint
+JUDGE0_API_URL=https://ce.judge0.com
 
-# Optional: enables AI analysis
-PERPLEXITY_API_KEY=your_perplexity_api_key
-PERPLEXITY_API_URL=https://api.perplexity.ai/chat/completions
-PERPLEXITY_MODEL=sonar
+# Optional: enables local AI analysis through Ollama
+OLLAMA_API_URL=http://127.0.0.1:11434/api/chat
+OLLAMA_MODEL=llama3.2
 
 # Optional: enables persistent history
 MONGODB_URI=your_mongodb_connection_string

@@ -10,13 +10,6 @@ router.post("/", async (req, res) => {
       return res.status(400).json({ error: "Code is required." });
     }
 
-    if (!process.env.PERPLEXITY_API_KEY) {
-      return res.status(503).json({
-        error: "AI analysis is not configured.",
-        hint: "Add PERPLEXITY_API_KEY to backend/.env"
-      });
-    }
-
     const prompt = `
 Review this ${language} program.
 
@@ -35,16 +28,15 @@ ${code}
 `;
 
     const response = await fetch(
-      process.env.PERPLEXITY_API_URL ||
-        "https://api.perplexity.ai/chat/completions",
+      process.env.OLLAMA_API_URL || "http://127.0.0.1:11434/api/chat",
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.PERPLEXITY_API_KEY}`
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          model: process.env.PERPLEXITY_MODEL || "sonar",
+          model: process.env.OLLAMA_MODEL || "llama3.2",
+          stream: false,
           messages: [
             {
               role: "system",
@@ -60,15 +52,13 @@ ${code}
 
     if (!response.ok) {
       return res.status(response.status).json({
-        error: "AI provider returned an error.",
+        error: "Ollama returned an error.",
         details: data
       });
     }
 
     res.json({
-      analysis:
-        data?.choices?.[0]?.message?.content ||
-        "No analysis was returned."
+      analysis: data?.message?.content || "No analysis was returned."
     });
   } catch (error) {
     res.status(500).json({

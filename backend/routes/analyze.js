@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { GoogleGenAI } from "@google/genai";
 
 const router = Router();
 
@@ -7,13 +8,29 @@ router.post("/", async (req, res) => {
     const { code, language } = req.body;
 
     if (!code?.trim()) {
-      return res.status(400).json({ error: "Code is required." });
+      return res.status(400).json({
+        error: "Code is required."
+      });
     }
 
+    // Check whether Vercel/local environment has the key
+    if (!process.env.GEMINI_API_KEY) {
+      return res.status(500).json({
+        error: "GEMINI_API_KEY is missing."
+      });
+    }
+
+    const ai = new GoogleGenAI({
+      apiKey: process.env.GEMINI_API_KEY
+    });
+
     const prompt = `
-Review this ${language} program.
+You are an expert programming code reviewer.
+
+Review this ${language || "programming"} program.
 
 Return a clear report with:
+
 1. What the code does
 2. Syntax errors, if any
 3. Logical errors, if any
@@ -27,43 +44,21 @@ Code:
 ${code}
 `;
 
-    const response = await fetch(
-      process.env.OLLAMA_API_URL || "http://127.0.0.1:11434/api/chat",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          model: process.env.OLLAMA_MODEL || "llama3.2",
-          stream: false,
-          messages: [
-            {
-              role: "system",
-              content: "You are an expert programming code reviewer."
-            },
-            { role: "user", content: prompt }
-          ]
-        })
-      }
-    );
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      return res.status(response.status).json({
-        error: "Ollama returned an error.",
-        details: data
-      });
-    }
+    const response = await ai.models.generateContent({
+      model: "gemini-3.7-flash",
+      contents: prompt
+    });
 
     res.json({
-      analysis: data?.message?.content || "No analysis was returned."
+      analysis: response.text || "No analysis was returned."
     });
+
   } catch (error) {
+    console.error("FULL GEMINI ERROR:", error);
+
     res.status(500).json({
-      error: "AI analysis failed.",
-      details: error.message
+      error: "Gemini AI analysis failed.",
+      details: error?.message || String(error)
     });
   }
 });

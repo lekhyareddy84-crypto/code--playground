@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Editor from "@monaco-editor/react";
 
-const API = "http://localhost:5000/api";
+const API = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 const languages = {
   Python: { id: 71, monaco: "python", starter: `def greet(name):\n    return f"Hello, {name}!"\n\nprint(greet("World"))` },

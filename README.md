@@ -1,14 +1,18 @@
 # 💻 Code Playground
 
-A full-stack online code playground that allows users to write, execute, analyze, and review programming code with AI.
+An AI-powered online code playground where users can write, execute, and analyze programming code directly from their browser.
 
-## 🚀 Live Demo
+## 🌐 Live Project
 
-Frontend:
-https://code-playground-iota-jade.vercel.app
+🚀 **Try the project here:**
 
-Backend API:
-https://code-playground-44e6.onrender.com
+👉 https://code-playground-iota-jade.vercel.app
+
+## 🔗 Project Links
+
+- **Live Project:** https://code-playground-iota-jade.vercel.app
+- **Backend API:** https://code-playground-44e6.onrender.com
+- **GitHub Repository:** https://github.com/lekhyareddy84-crypto/code--playground
 
 ## ✨ Features
 
@@ -22,17 +26,19 @@ https://code-playground-44e6.onrender.com
 - 💾 Space complexity analysis
 - 🚀 Code optimization suggestions
 - 📚 Code history
-- 🌐 Fully deployed frontend and backend
+- 🌐 Publicly accessible online
 
 ## 🛠️ Technologies Used
 
 ### Frontend
+
 - React
 - Vite
 - Monaco Editor
 - JavaScript
 
 ### Backend
+
 - Node.js
 - Express.js
 - MongoDB
@@ -40,9 +46,11 @@ https://code-playground-44e6.onrender.com
 - dotenv
 
 ### AI
+
 - Google Gemini API
 
 ### Deployment
+
 - Vercel – Frontend
 - Render – Backend
 
@@ -67,3 +75,31 @@ code-playground
 │
 ├── README.md
 └── package.json
+
+How It Works
+User
+  ↓
+React Frontend
+  ↓
+Vercel
+  ↓
+Render Backend
+  ↓
+Google Gemini API
+  ↓
+AI Code Analysis
+  ↓
+Results displayed to User
+
+🤖 AI Code Analysis
+
+The application uses Google Gemini to analyze programming code and provide:
+
+What the code does
+Syntax errors
+Logical errors
+Time complexity
+Space complexity
+Optimization suggestions
+Readability suggestions
+Improved code when useful

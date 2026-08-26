@@ -38,68 +38,62 @@ An AI-powered online code playground where users can write, execute, and analyze
 - JavaScript
 
 ### Backend
+```bash
+cd backend
+npm.cmd install
+```
 
-- Node.js
-- Express.js
-- MongoDB
-- CORS
-- dotenv
+Create `backend/.env` and add the following values:
 
-### AI
+```env
+PORT=5000
+CLIENT_URL=http://localhost:5173
+# Optional: override the public Judge0 CE endpoint
+JUDGE0_API_URL=https://ce.judge0.com
 
-- Google Gemini API
+# Optional: enables local AI analysis through Ollama
+OLLAMA_API_URL=http://127.0.0.1:11434/api/chat
+OLLAMA_MODEL=llama3.2
 
-### Deployment
+# Optional: enables persistent history
+MONGODB_URI=your_mongodb_connection_string
+```
 
-- Vercel – Frontend
-- Render – Backend
+Start the backend:
 
-## 📁 Project Structure
+```powershell
+npm.cmd run dev
+```
 
-```text
-code-playground
-│
-├── frontend
-│   ├── src
-│   ├── package.json
-│   └── ...
-│
-├── backend
-│   ├── routes
-│   │   ├── analyze.js
-│   │   ├── execute.js
-│   │   └── history.js
-│   ├── server.js
-│   ├── package.json
-│   └── .env
-│
-├── README.md
-└── package.json
 
-How It Works
-User
-  ↓
-React Frontend
-  ↓
-Vercel
-  ↓
-Render Backend
-  ↓
-Google Gemini API
-  ↓
-AI Code Analysis
-  ↓
-Results displayed to User
+### 2. Start the frontend
 
-🤖 AI Code Analysis
+In the second terminal:
 
-The application uses Google Gemini to analyze programming code and provide:
+```powershell
+cd frontend
+npm.cmd install
+npm.cmd run dev
+```
 
-What the code does
-Syntax errors
-Logical errors
-Time complexity
-Space complexity
-Optimization suggestions
-Readability suggestions
-Improved code when useful
+Open https://code-playground-iota-jade.vercel.app/ in your browser.
+
+## Usage
+
+1. Start both the backend and frontend.
+2. Choose a language from the selector.
+3. Write or edit the code in the editor.
+4. Enter optional standard input.
+5. Click **Run Code** to execute it.
+6. Click **Analyze Code** to receive AI feedback when configured.
+
+## API
+- GET `/api/health`
+- POST `/api/execute`
+- POST `/api/analyze`
+- GET `/api/history`
+- POST `/api/history`
+
+## Security
+
+Never commit or upload `backend/.env`. Keep API keys only in backend environment variables, and ensure `.gitignore` includes `.env` and `node_modules/`.

@@ -38,62 +38,35 @@ An AI-powered online code playground where users can write, execute, and analyze
 - JavaScript
 
 ### Backend
-```bash
-cd backend
-npm.cmd install
-```
 
-Create `backend/.env` and add the following values:
+- Node.js
+- Express.js
+- MongoDB
+- CORS
+- dotenv
 
-```env
-PORT=5000
-CLIENT_URL=http://localhost:5173
-# Optional: override the public Judge0 CE endpoint
-JUDGE0_API_URL=https://ce.judge0.com
+### AI
 
-# Optional: enables local AI analysis through Ollama
-OLLAMA_API_URL=http://127.0.0.1:11434/api/chat
-OLLAMA_MODEL=llama3.2
+- Google Gemini API
 
-# Optional: enables persistent history
-MONGODB_URI=your_mongodb_connection_string
-```
+### Deployment
 
-Start the backend:
+- Vercel
+- Render
 
-```powershell
-npm.cmd run dev
-```
+## 🚀 How It Works
 
-
-### 2. Start the frontend
-
-In the second terminal:
-
-```powershell
-cd frontend
-npm.cmd install
-npm.cmd run dev
-```
-
-Open https://code-playground-iota-jade.vercel.app/ in your browser.
-
-## Usage
-
-1. Start both the backend and frontend.
-2. Choose a language from the selector.
-3. Write or edit the code in the editor.
-4. Enter optional standard input.
-5. Click **Run Code** to execute it.
-6. Click **Analyze Code** to receive AI feedback when configured.
-
-## API
-- GET `/api/health`
-- POST `/api/execute`
-- POST `/api/analyze`
-- GET `/api/history`
-- POST `/api/history`
-
-## Security
-
-Never commit or upload `backend/.env`. Keep API keys only in backend environment variables, and ensure `.gitignore` includes `.env` and `node_modules/`.
+```text
+User
+  ↓
+React Frontend
+  ↓
+Vercel
+  ↓
+Render Backend
+  ↓
+Google Gemini API
+  ↓
+AI Code Analysis
+  ↓
+Results displayed to User

@@ -45,41 +45,58 @@ ${code}
 `;
 
     const models = [
-      "gemini-2.5-flash-lite",
-      "gemini-2.5-flash"
+      "gemini-3.5-flash-lite",
+      "gemini-3.6-flash"
     ];
 
     let response = null;
     let lastError = null;
 
     for (const model of models) {
-      try {
-        console.log(`Trying Gemini model: ${model}`);
+      for (let attempt = 1; attempt <= 2; attempt++) {
+        try {
+          console.log(
+            `Trying Gemini model: ${model}, attempt ${attempt}`
+          );
 
-        response = await ai.models.generateContent({
-          model,
-          contents: prompt
-        });
+          response = await ai.models.generateContent({
+            model: model,
+            contents: prompt
+          });
 
-        if (response?.text) {
-          console.log(`Gemini succeeded with: ${model}`);
-          break;
+          if (response?.text) {
+            console.log(
+              `Gemini succeeded with model: ${model}`
+            );
+
+            break;
+          }
+
+        } catch (error) {
+          lastError = error;
+
+          console.error(
+            `Gemini model ${model}, attempt ${attempt} failed:`,
+            error?.message || error
+          );
+
+          if (attempt < 2) {
+            await new Promise(resolve =>
+              setTimeout(resolve, 1500)
+            );
+          }
         }
+      }
 
-      } catch (error) {
-        lastError = error;
-
-        console.error(
-          `Gemini model ${model} failed:`,
-          error?.message || error
-        );
-
-        // Try the next model
+      if (response?.text) {
+        break;
       }
     }
 
     if (!response?.text) {
-      throw lastError || new Error("Gemini returned no response.");
+      throw lastError || new Error(
+        "Gemini returned no response."
+      );
     }
 
     res.json({

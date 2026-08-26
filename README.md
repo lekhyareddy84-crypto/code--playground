@@ -65,7 +65,7 @@ npm.cmd install
 npm.cmd run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) in your browser.
+Open https://code-playground-iota-jade.vercel.app/ in your browser.
 
 ## Usage
 

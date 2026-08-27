@@ -49,9 +49,12 @@ button:disabled {
 }
 
 .subtitle {
-  margin-top: 3px;
-  color: #7d8798;
-  font-size: 12px;
+  margin-top: 4px;
+  font-size: 13px;
+  color: #94a3b8;
+  display: block;
+  visibility: visible;
+  opacity: 1;
 }
 
 .top-actions {
@@ -300,8 +303,8 @@ button:disabled {
   }
 
   .subtitle {
-    display: none;
-  }
+  
+}
 
   .main {
     padding: 10px;

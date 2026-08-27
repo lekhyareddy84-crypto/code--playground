@@ -152,7 +152,7 @@ function App() {
       <header className="topbar">
         <div>
           <div className="brand">Code Playground</div>
-          <div className="subtitle">Online IDE · Execute · Analyze · Learn</div>
+          <div className="subtitle">Online IDE · Execute · Analyze · Learnn</div>
         </div>
 
         <div className="top-actions">
